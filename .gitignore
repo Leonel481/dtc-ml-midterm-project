@@ -12,3 +12,4 @@ Data/bank-full.csv
 Notebooks/my_keras_tuner/
 # Virtual environments
 .venv
+.env
