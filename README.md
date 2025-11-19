@@ -12,42 +12,57 @@ The data is related with direct marketing campaigns of a Portuguese banking inst
 > **Note:** The dataset contains 41,188 records and 20 attributes
 
 Data description:
-| Variable | Tipo | Descripción |
+| Variable | Type | Description |
 | :--- | :--- | :--- |
-| `age` | Numérico | Edad del cliente. |
-| `job` | Categórico | Tipo de trabajo (ej: "admin.", "blue-collar", "entrepreneur", "housemaid", "management", "retired", "self-employed", "services", "student", "technician", "unemployed", "unknown"). |
-| `marital` | Categórico | Estado civil ("married", "divorced", "single"). Nota: "divorced" incluye divorciados y viudos. |
-| `education` | Categórico | Nivel educativo ("unknown", "secondary", "primary", "tertiary"). |
-| `default` | Binario | ¿Tiene crédito en mora/incumplimiento? ("yes", "no"). |
-| `balance` | Numérico | Saldo medio anual en euros. |
-| `housing` | Binario | ¿Tiene préstamo hipotecario? ("yes", "no"). |
-| `loan` | Binario | ¿Tiene préstamo personal? ("yes", "no"). |
-| `contact` | Categórico | Tipo de comunicación de contacto ("unknown", "telephone", "cellular"). |
-| `day` | Numérico | Último día del mes en que fue contactado. |
-| `month` | Categórico | Último mes del año en que fue contactado ("jan", "feb", ..., "dec"). |
-| `duration` | Numérico | Duración del último contacto en segundos. |
-| `campaign` | Numérico | Número de contactos realizados durante esta campaña para este cliente (incluye el último contacto). |
-| `pdays` | Numérico | Número de días que pasaron desde que el cliente fue contactado por última vez en una campaña anterior (-1 significa que no fue contactado previamente). |
-| `previous` | Numérico | Número de contactos realizados antes de esta campaña para este cliente. |
-| `poutcome` | Categórico | Resultado de la campaña de marketing anterior ("unknown", "other", "failure", "success"). |
-| **`y`** | **Binario** | **Variable Objetivo (Target): ¿El cliente ha suscrito un depósito a plazo? ("yes", "no").** |
+| `age` | Numeric | Client's age. |
+| `job` | Categorical | Type of job (e.g., "admin.", "blue-collar", "entrepreneur", "housemaid", "management", "retired", "self-employed", "services", "student", "technician", "unemployed", "unknown"). |
+| `marital` | Categorical | Marital status ("married", "divorced", "single"). Note: "divorced" includes divorced or widowed. |
+| `education` | Categorical | Education level ("unknown", "secondary", "primary", "tertiary"). |
+| `default` | Binary | Has credit in default? ("yes", "no"). |
+| `balance` | Numeric | Average yearly balance, in euros. |
+| `housing` | Binary | Has housing loan? ("yes", "no"). |
+| `loan` | Binary | Has personal loan? ("yes", "no"). |
+| `contact` | Categorical | Contact communication type ("unknown", "telephone", "cellular"). |
+| `day` | Numeric | Last contact day of the month. |
+| `month` | Categorical | Last contact month of year ("jan", "feb", ..., "dec"). |
+| `duration` | Numeric | Last contact duration, in seconds. |
+| `campaign` | Numeric | Number of contacts performed during this campaign and for this client (includes last contact). |
+| `pdays` | Numeric | Number of days that passed by after the client was last contacted from a previous campaign (-1 means client was not previously contacted). |
+| `previous` | Numeric | Number of contacts performed before this campaign and for this client. |
+| `poutcome` | Categorical | Outcome of the previous marketing campaign ("unknown", "other", "failure", "success"). |
+| **`y`** | **Binary** | **Target Variable: Has the client subscribed a term deposit? ("yes", "no").** |
 
 ## Project Structure
 
 This repository is organized into two main components: exploration and production source code.
 
-├── notebooks/
-│   └── EDA.ipynb     # Contains EDA, model selection, and metrics evaluation.
-├── src/
-│   ├── train.py      # Main training pipeline. Executes data cleaning, encoding, scaling, and model training. Generates the production artifact (.joblib).
-│   └── predict.py    # Requests for model inference.
-│   └── main.py    # FastAPI application entry point for model inference.
-├── conf/             # Hydra configuration files.
-└── Data/             # Raw dataset location.
+```text
+dtc-ml-midterm-project/
+│
+├── conf/                       # Configuration files (Hydra)
+│   └── config.yaml
+│
+├── data/                       # Raw and processed data
+│   └── bank-additional-full.csv
+│
+├── notebooks/                  # Jupyter notebooks for experimentation
+│   └── EDA.ipynb
+│
+├── src/                        # Source code for production
+│   ├── main.py                 # FastAPI app entry point
+│   ├── predict.py              # Client script for testing API
+│   └── train.py                # Training pipeline & artifact generation
+│
+├── .env                        # Environment variables (Path configuration)
+├── .gitignore                  # Files to ignore in Git
+├── Dockerfile                  # Instructions to build the image
+├── pyproject.toml              # Project dependencies (uv)
+└── README.md                   # Project documentation
+```
 
 ## Deployment & Usage
 
-Ejecutar el siguiente codigo para levantar la infraestructura de FastAPI con el modelo entrenado
+Run the following commands to build and start the FastAPI infrastructure container:
 
 ```bash
 docker build -t bank-marketing:latest .
