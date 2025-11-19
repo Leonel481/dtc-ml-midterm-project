@@ -60,6 +60,15 @@ dtc-ml-midterm-project/
 └── README.md                   # Project documentation
 ```
 
+## Environment Setup
+
+Create the `.env` file by copying the template:\
+Copy .env.template and modify with your path configurations
+
+```bash
+cp .env.template .env
+```
+
 ## Deployment & Usage
 
 Run the following commands to build and start the FastAPI infrastructure container:

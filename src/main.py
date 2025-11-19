@@ -1,4 +1,6 @@
 import joblib
+import os
+import sys
 import pandas as pd
 from fastapi import FastAPI
 from typing import Annotated
@@ -8,6 +10,11 @@ try:
     from src.train import DataPreprocessor
 except ImportError:
     from train import DataPreprocessor
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import __main__
+setattr(__main__, "DataPreprocessor", DataPreprocessor)
+
 
 with open('model_production.joblib', 'rb') as model_file:
         model = joblib.load(model_file)
