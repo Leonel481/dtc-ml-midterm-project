@@ -1,0 +1,14 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+outputs/**
+Data/bank-additional-full.csv
+Data/bank-full.csv
+
+Notebooks/my_keras_tuner/
+# Virtual environments
+.venv
